@@ -121,16 +121,18 @@ a {
 }
 
 /* ── Home: Post List ── */
-.home-wrap {
-  flex: 1;
-  max-width: 740px;
-  margin: 0 auto;
-  width: 100%;
-  padding: 0 40px;
-}
 
 .post-list {
   flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.home-wrap {
+  width: 100%;
+  max-width: 740px;
+  padding: 0 40px;
+  box-sizing: border-box;
 }
 
 .post-row {
