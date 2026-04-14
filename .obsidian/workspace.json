@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_posts/介绍一下自己.md",
+                "file": "src/content/blog/intro.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "介绍一下自己"
+              "title": "intro"
             }
           }
         ]
@@ -94,7 +94,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_posts/介绍一下自己.md",
+                "file": "src/content/blog/intro.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -104,7 +104,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for 介绍一下自己"
+              "title": "Backlinks for intro"
             }
           },
           {
@@ -113,12 +113,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "_posts/介绍一下自己.md",
+                "file": "src/content/blog/intro.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from 介绍一下自己"
+              "title": "Outgoing links from intro"
             }
           },
           {
@@ -156,13 +156,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_posts/介绍一下自己.md",
+                "file": "src/content/blog/intro.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of 介绍一下自己"
+              "title": "Outline of intro"
             }
           },
           {
@@ -196,24 +196,44 @@
   },
   "active": "c8eea019ce75a1a8",
   "lastOpenFiles": [
-    "src/pages/posts/[slug].astro",
-    "src/pages/posts",
-    "src/pages/index.astro",
-    "src/pages",
-    "src/layouts/BaseLayout.astro",
-    "src/layouts",
-    "scripts/gen-blog-meta.ts",
-    "src/content/config.ts",
-    "src/content",
-    "src",
-    "tsconfig.json",
-    "_posts/2026-04-13-介绍一下自己.md",
     "_posts/介绍一下自己.md",
-    "_posts/2025-05-02-active-vs-passive-income.md",
-    "_posts/2025-01-14-net-worth-tracking.md",
-    "_posts/2024-11-30-minimalist-consumption.md",
-    "_posts/Untitled.md",
-    "fs.md",
-    "_posts/2025-03-21-index-fund.md"
+    "node_modules/ms/readme.md",
+    "node_modules/ms/package.json",
+    "node_modules/ms/license.md",
+    "node_modules/ms/index.js",
+    "node_modules/ms",
+    "node_modules/readdirp/README.md",
+    "node_modules/readdirp/package.json",
+    "node_modules/readdirp/LICENSE",
+    "node_modules/readdirp/index.js",
+    "node_modules/readdirp/index.d.ts",
+    "node_modules/readdirp",
+    "node_modules/fontkitten/dist/index.js",
+    "node_modules/fontkitten/dist/index.d.ts",
+    "node_modules/fontkitten/README.md",
+    "node_modules/rollup/README.md",
+    "node_modules/rollup/LICENSE.md",
+    "node_modules/tsconfck/README.md",
+    "node_modules/@capsizecss/unpack/README.md",
+    "node_modules/oniguruma-to-es/README.md",
+    "node_modules/stringify-entities/readme.md",
+    "node_modules/hast-util-to-html/readme.md",
+    "node_modules/astro/node_modules/zod/README.md",
+    "node_modules/astro/README.md",
+    "node_modules/unified/readme.md",
+    "node_modules/remark-rehype/readme.md",
+    "node_modules/prismjs/README.md",
+    "node_modules/prismjs/CHANGELOG.md",
+    "node_modules/yoctocolors/readme.md",
+    "node_modules/postcss/README.md",
+    "node_modules/vfile-message/readme.md",
+    "node_modules/ufo/README.md",
+    "node_modules/node-fetch-native/README.md",
+    "node_modules/h3/README.md",
+    "node_modules/destr/README.md",
+    "node_modules/chokidar/README.md",
+    "public/icon.png",
+    "public/favicon-32x32.png",
+    "public/apple-touch-icon.png"
   ]
 }
