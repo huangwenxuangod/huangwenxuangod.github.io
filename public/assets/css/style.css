@@ -120,35 +120,12 @@ a {
   color: var(--text);
 }
 
-/* ── Home: Hero ── */
-.hero {
-  padding: 48px 40px 32px;
-  border-bottom: 0.5px solid var(--border);
-}
-
-.hero-sub {
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  color: var(--muted);
-  text-transform: uppercase;
-  margin-bottom: 14px;
-}
-
-.hero-title {
-  font-family: 'IM Fell English', serif;
-  font-size: 24px;
-  font-weight: 400;
-  line-height: 1.5;
-  max-width: 520px;
-}
-
-.hero-title em {
-  font-style: italic;
-}
-
 /* ── Home: Post List ── */
 .home-wrap {
   flex: 1;
+  max-width: 740px;
+  margin: 0 auto;
+  width: 100%;
   padding: 0 40px;
 }
 
@@ -389,16 +366,11 @@ a {
 /* ── Responsive ── */
 @media (max-width: 640px) {
   .site-header,
-  .hero,
   .home-wrap,
   .site-footer,
   .article-wrap {
     padding-left: 24px;
     padding-right: 24px;
-  }
-
-  .hero-title {
-    font-size: 20px;
   }
 
   .article-title {
