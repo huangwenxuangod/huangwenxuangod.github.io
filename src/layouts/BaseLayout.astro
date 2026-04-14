@@ -1,0 +1,109 @@
+---
+type Props = {
+  title?: string;
+  description?: string;
+};
+
+const { title, description } = Astro.props;
+const pageTitle = title
+  ? `${title} · 文轩的财富自由之路`
+  : "文轩的财富自由之路";
+const metaDescription =
+  description || "记录通往财富自由路上每一个值得思考的瞬间。";
+---
+
+<!doctype html>
+<html lang="zh-CN" data-theme="">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={metaDescription} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <!-- RSS -->
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="文轩的财富自由之路"
+      href="/feed.xml"
+    />
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="/assets/css/style.css" />
+
+    <!-- Apply theme before paint to avoid flash -->
+    <script is:inline>
+      (function () {
+        const s = localStorage.getItem("wx-theme");
+        const p =
+          !s && window.matchMedia("(prefers-color-scheme: light)").matches
+            ? "light"
+            : s || "";
+        document.documentElement.setAttribute(
+          "data-theme",
+          p === "light" ? "light" : ""
+        );
+      })();
+    </script>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <a href="/" class="site-title">文轩的财富自由之路</a>
+      <button class="theme-btn" id="theme-toggle" aria-label="切换明暗模式">
+        <svg class="icon-moon" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <path
+            d="M12.5 8.5A5.5 5.5 0 0 1 5.5 1.5a.5.5 0 0 0-.6.6A5.5 5.5 0 1 0 12.4 9.1a.5.5 0 0 0-.6-.6z"
+            stroke="currentColor"
+            stroke-width="0.9"
+            fill="none"
+          ></path>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+          <circle cx="7" cy="7" r="2.8" stroke="currentColor" stroke-width="0.9"></circle>
+          <line x1="7" y1="1" x2="7" y2="2.2" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"></line>
+          <line x1="7" y1="11.8" x2="7" y2="13" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"></line>
+          <line x1="1" y1="7" x2="2.2" y2="7" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"></line>
+          <line x1="11.8" y1="7" x2="13" y2="7" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"></line>
+          <line x1="2.93" y1="2.93" x2="3.78" y2="3.78" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"></line>
+          <line x1="10.22" y1="10.22" x2="11.07" y2="11.07" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"></line>
+          <line x1="11.07" y1="2.93" x2="10.22" y2="3.78" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"></line>
+          <line x1="3.78" y1="10.22" x2="2.93" y2="11.07" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"></line>
+        </svg>
+      </button>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        © {new Date().getFullYear()} 文轩 &nbsp;·&nbsp;
+        <a href="/feed.xml">RSS</a>
+      </p>
+    </footer>
+
+    <script is:inline>
+      (function () {
+        const STORAGE_KEY = "wx-theme";
+        function applyTheme(theme) {
+          document.documentElement.setAttribute("data-theme", theme);
+          localStorage.setItem(STORAGE_KEY, theme);
+        }
+        const btn = document.getElementById("theme-toggle");
+        if (btn) {
+          btn.addEventListener("click", function () {
+            const current = document.documentElement.getAttribute("data-theme");
+            applyTheme(current === "light" ? "" : "light");
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>

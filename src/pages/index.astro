@@ -1,0 +1,41 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import meta from "../content/blog/_meta.json";
+
+type MetaItem = {
+  id: string;
+  slug: string;
+  title: string;
+  date: string;
+};
+
+const posts = meta as MetaItem[];
+
+function formatDateDot(ymd: string): string {
+  const [y, m, d] = ymd.split("-");
+  return `${y}.${m}.${d}`;
+}
+---
+
+<BaseLayout>
+  <div class="hero">
+    <div class="hero-sub">writing · {new Date().getFullYear()}</div>
+    <h1 class="hero-title">
+      记录通往<em>财富自由</em>路上<br />每一个值得思考的瞬间。
+    </h1>
+  </div>
+
+  <div class="post-list">
+    <div class="home-wrap">
+      {
+        posts.map((post) => (
+          <a class="post-row" href={`/posts/${post.slug}/`}>
+            <span class="post-date">{formatDateDot(post.date)}</span>
+            <span class="post-title">{post.title}</span>
+            <span class="post-arrow">→</span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>

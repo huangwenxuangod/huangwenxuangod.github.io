@@ -1,0 +1,19 @@
+{
+  "name": "wenxuan-blog",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "gen:meta": "bun run scripts/gen-blog-meta.ts",
+    "build": "bun run gen:meta && astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.0",
+    "astro": "^5.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

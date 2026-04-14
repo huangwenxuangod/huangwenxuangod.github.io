@@ -1,0 +1,19 @@
+# Astro
+dist/
+.astro/
+node_modules/
+
+# Bun
+bun.lockb
+
+# Jekyll legacy (no longer used)
+_site/
+.jekyll-cache/
+.sass-cache/
+vendor/
+.bundle/
+Gemfile.lock
+
+# OS
+.DS_Store
+Thumbs.db
