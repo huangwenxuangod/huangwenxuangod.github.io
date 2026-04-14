@@ -6,10 +6,10 @@ type Props = {
 
 const { title, description } = Astro.props;
 const pageTitle = title
-  ? `${title} · 文轩的财富自由之路`
-  : "文轩的财富自由之路";
+  ? `${title} · 文轩的自由之路`
+  : "文轩的自由之路";
 const metaDescription =
-  description || "记录通往财富自由路上每一个值得思考的瞬间。";
+  description || "记录通往自由路上每一个值得思考的瞬间。";
 ---
 
 <!doctype html>
@@ -29,7 +29,7 @@ const metaDescription =
     <link
       rel="alternate"
       type="application/rss+xml"
-      title="文轩的财富自由之路"
+      title="文轩的自由之路"
       href="/feed.xml"
     />
 
@@ -54,7 +54,7 @@ const metaDescription =
 
   <body>
     <header class="site-header">
-      <a href="/" class="site-title">文轩的财富自由之路</a>
+      <a href="/" class="site-title">文轩的自由之路</a>
       <button class="theme-btn" id="theme-toggle" aria-label="切换明暗模式">
         <svg class="icon-moon" viewBox="0 0 14 14" fill="none" aria-hidden="true">
           <path

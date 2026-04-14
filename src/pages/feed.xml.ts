@@ -14,8 +14,8 @@ export async function GET(context: APIContext) {
   const posts = meta as MetaItem[];
 
   return rss({
-    title: "文轩的财富自由之路",
-    description: "记录通往财富自由路上每一个值得思考的瞬间。",
+    title: "文轩的自由之路",
+    description: "记录通往自由路上每一个值得思考的瞬间。",
     site: context.site ?? "https://huangwenxuangod.github.io",
     items: posts.map((post) => ({
       title: post.title,
