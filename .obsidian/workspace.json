@@ -194,8 +194,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "c8eea019ce75a1a8",
+  "active": "e7bef76d3bdad771",
   "lastOpenFiles": [
+    "public/assets/images",
     "_posts/介绍一下自己.md",
     "node_modules/ms/readme.md",
     "node_modules/ms/package.json",
@@ -231,7 +232,6 @@
     "node_modules/node-fetch-native/README.md",
     "node_modules/h3/README.md",
     "node_modules/destr/README.md",
-    "node_modules/chokidar/README.md",
     "public/icon.png",
     "public/favicon-32x32.png",
     "public/apple-touch-icon.png"
