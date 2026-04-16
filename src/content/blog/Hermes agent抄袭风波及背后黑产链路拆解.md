@@ -1,5 +1,6 @@
 ---
 title: Hermes agent：抄袭风波下的黑产链路拆解
+date: 2026-04-14
 ---
 # Hermes agent抄袭风波及背后黑产链路拆解
 
