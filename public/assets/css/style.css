@@ -51,9 +51,17 @@ a {
   padding: 22px 40px;
   border-bottom: 0.5px solid var(--border);
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   flex-shrink: 0;
+}
+
+.header-inner {
+  width: 100%;
+  max-width: 740px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .site-title {
@@ -67,8 +75,11 @@ a {
 
 .site-nav {
   display: flex;
-  gap: 24px;
   align-items: center;
+  padding: 2px;
+  border: 0.5px solid var(--border);
+  border-radius: 4px;
+  background: transparent;
 }
 
 .nav-link {
@@ -77,12 +88,18 @@ a {
   text-transform: uppercase;
   color: var(--muted);
   text-decoration: none;
-  transition: color 0.2s;
+  transition: all 0.2s;
+  padding: 6px 12px;
+  border-radius: 3px;
 }
 
-.nav-link:hover,
+.nav-link:hover {
+  color: var(--text);
+}
+
 .nav-link.active {
   color: var(--text);
+  background: var(--border);
 }
 
 .theme-btn {
@@ -388,11 +405,23 @@ a {
 /* ── Responsive ── */
 @media (max-width: 640px) {
   .site-header,
+  .site-footer {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
   .home-wrap,
-  .site-footer,
   .article-wrap {
     padding-left: 24px;
     padding-right: 24px;
+  }
+
+  .site-title {
+    display: none;
+  }
+
+  .nav-link {
+    padding: 6px 10px;
   }
 
   .article-title {
