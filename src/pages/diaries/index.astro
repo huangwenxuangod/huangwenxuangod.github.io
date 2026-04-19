@@ -1,0 +1,34 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import meta from "../../content/diary/_meta.json";
+
+type MetaItem = {
+  id: string;
+  slug: string;
+  title: string;
+  date: string;
+};
+
+const posts = meta as MetaItem[];
+
+function formatDateDot(ymd: string): string {
+  const [y, m, d] = ymd.split("-");
+  return `${y}.${m}.${d}`;
+}
+---
+
+<BaseLayout title="日记">
+  <div class="post-list">
+    <div class="home-wrap">
+      {
+        posts.map((post) => (
+          <a class="post-row" href={`/diaries/${post.slug}/`}>
+            <span class="post-date">{formatDateDot(post.date)}</span>
+            <span class="post-title">{formatDateDot(post.date)}</span>
+            <span class="post-arrow">→</span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>

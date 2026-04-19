@@ -3,6 +3,8 @@ import { execFileSync } from "node:child_process";
 import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { extname, join, relative } from "node:path";
 
+type CollectionType = "blog" | "diary";
+
 type MetaItem = {
   id: string;
   slug: string;
@@ -10,9 +12,6 @@ type MetaItem = {
   date: string;
   description?: string;
 };
-
-const BLOG_DIR = join(process.cwd(), "src", "content", "blog");
-const OUT_FILE = join(BLOG_DIR, "_meta.json");
 
 function isMarkdownFile(fileName: string) {
   const ext = extname(fileName).toLowerCase();
@@ -79,6 +78,10 @@ function slugifyTitle(title: string) {
   return `p${hash}`;
 }
 
+function slugifyHash(content: string) {
+  return createHash("sha1").update(content).digest("hex").slice(0, 10);
+}
+
 function getGitDate(fileAbsPath: string) {
   const rel = relative(process.cwd(), fileAbsPath);
   try {
@@ -102,38 +105,56 @@ function toYmd(d: Date) {
   return `${d.getFullYear()}-${pad2(d.getMonth() + 1)}-${pad2(d.getDate())}`;
 }
 
-const files = walk(BLOG_DIR).sort();
-const usedSlugs = new Map<string, number>();
-const items: MetaItem[] = [];
+function generateMeta(collectionType: CollectionType) {
+  const CONTENT_DIR = join(process.cwd(), "src", "content", collectionType);
+  const OUT_FILE = join(CONTENT_DIR, "_meta.json");
 
-for (const abs of files) {
-  const relFromBlog = relative(BLOG_DIR, abs).replaceAll("\\", "/");
-  const id = relFromBlog;
+  const files = walk(CONTENT_DIR).sort();
+  const usedSlugs = new Map<string, number>();
+  const items: MetaItem[] = [];
 
-  const raw = readFileSync(abs, "utf8");
-  const { data, body } = parseFrontMatter(raw);
+  for (const abs of files) {
+    const relFromContent = relative(CONTENT_DIR, abs).replaceAll("\\", "/");
+    const id = relFromContent;
 
-  const title =
-    (typeof data.title === "string" && data.title.trim()) ||
-    extractFirstH1(body) ||
-    relFromBlog.replace(/\.(md|mdx)$/i, "");
+    const raw = readFileSync(abs, "utf8");
+    const { data, body } = parseFrontMatter(raw);
 
-  const date =
-    (typeof data.date === "string" && data.date.trim()) ||
-    getGitDate(abs) ||
-    toYmd(statSync(abs).mtime);
+    let title: string;
+    let slug: string;
+    let date: string;
+    let description: string | undefined;
 
-  const description =
-    typeof data.description === "string" && data.description.trim() ? data.description.trim() : undefined;
+    if (collectionType === "blog") {
+      title =
+        (typeof data.title === "string" && data.title.trim()) ||
+        extractFirstH1(body) ||
+        relFromContent.replace(/\.(md|mdx)$/i, "");
 
-  let slug = slugifyTitle(title);
-  const count = usedSlugs.get(slug) ?? 0;
-  usedSlugs.set(slug, count + 1);
-  if (count > 0) slug = `${slug}-${count + 1}`;
+      slug = slugifyTitle(title);
+      description =
+        typeof data.description === "string" && data.description.trim() ? data.description.trim() : undefined;
+    } else {
+      title = "";
+      slug = slugifyHash(raw);
+      description = undefined;
+    }
 
-  items.push({ id, slug, title, date, description });
+    date =
+      (typeof data.date === "string" && data.date.trim()) ||
+      getGitDate(abs) ||
+      toYmd(statSync(abs).mtime);
+
+    const count = usedSlugs.get(slug) ?? 0;
+    usedSlugs.set(slug, count + 1);
+    if (count > 0) slug = `${slug}-${count + 1}`;
+
+    items.push({ id, slug, title, date, description });
+  }
+
+  items.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
+  writeFileSync(OUT_FILE, JSON.stringify(items, null, 2) + "\n", "utf8");
 }
 
-items.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));
-writeFileSync(OUT_FILE, JSON.stringify(items, null, 2) + "\n", "utf8");
-
+generateMeta("blog");
+generateMeta("diary");

@@ -65,6 +65,26 @@ a {
   text-decoration: none;
 }
 
+.site-nav {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.nav-link {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--text);
+}
+
 .theme-btn {
   background: none;
   border: 0.5px solid var(--border-h);

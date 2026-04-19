@@ -1,0 +1,73 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import meta from "../../content/diary/_meta.json";
+import { getCollection } from "astro:content";
+
+type MetaItem = {
+  id: string;
+  slug: string;
+  title: string;
+  date: string;
+};
+
+function formatDateMid(ymd: string) {
+  const [y, m, d] = ymd.split("-");
+  return `${y} · ${m} · ${d}`;
+}
+
+export async function getStaticPaths() {
+  const posts = meta as MetaItem[];
+  return posts.map((p) => ({ params: { slug: p.slug }, props: { id: p.id } }));
+}
+
+const { id } = Astro.props as { id: string };
+const collection = await getCollection("diary");
+const entry = collection.find((e) => e.id === id);
+
+if (!entry) {
+  throw new Error(`Missing diary entry for id: ${id}`);
+}
+
+const m = (meta as MetaItem[]).find((p) => p.id === id);
+const { Content } = await entry.render();
+
+const all = meta as MetaItem[];
+const currentIndex = all.findIndex((p) => p.id === id);
+const prev = currentIndex >= 0 ? all[currentIndex + 1] : undefined;
+const next = currentIndex >= 0 ? all[currentIndex - 1] : undefined;
+---
+<BaseLayout>
+  <div class="article-wrap">
+    <div style="margin-bottom: 32px;">
+      <a href="/diaries" class="back-btn">
+        <svg viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M5 1L1 5l4 4M1 5h10" stroke="currentColor" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        返回
+      </a>
+    </div>
+
+    <div class="article-meta">{formatDateMid(m?.date ?? "0000-00-00")}</div>
+
+    <div class="article-body">
+      <Content />
+    </div>
+
+    {(prev || next) && (
+      <nav class="post-nav" aria-label="日记导航">
+        {next && (
+          <a href={`/diaries/${next.slug}/`}>
+            <span class="nav-label">上一篇</span>
+            {formatDateMid(next.date)}
+          </a>
+        )}
+        {prev && (
+          <a href={`/diaries/${prev.slug}/`} class="nav-next">
+            <span class="nav-label">下一篇</span>
+            {formatDateMid(prev.date)}
+          </a>
+        )}
+      </nav>
+    )}
+  </div>
+</BaseLayout>

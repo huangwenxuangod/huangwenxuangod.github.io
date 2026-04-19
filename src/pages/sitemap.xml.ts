@@ -1,17 +1,24 @@
 import type { APIContext } from "astro";
-import meta from "../content/blog/_meta.json";
+import blogMeta from "../content/blog/_meta.json";
+import diaryMeta from "../content/diary/_meta.json";
 
 type MetaItem = { slug: string; date: string };
 
 export async function GET(context: APIContext) {
   const site = context.site ?? "https://huangwenxuangod.github.io";
-  const posts = meta as MetaItem[];
+  const blogPosts = blogMeta as MetaItem[];
+  const diaryPosts = diaryMeta as MetaItem[];
 
   const urls = [
     `<url><loc>${site}/</loc></url>`,
-    ...posts.map(
+    `<url><loc>${site}/diaries</loc></url>`,
+    ...blogPosts.map(
       (p) =>
         `<url><loc>${site}/posts/${p.slug}/</loc><lastmod>${p.date}</lastmod></url>`
+    ),
+    ...diaryPosts.map(
+      (p) =>
+        `<url><loc>${site}/diaries/${p.slug}/</loc><lastmod>${p.date}</lastmod></url>`
     ),
   ].join("\n  ");
 

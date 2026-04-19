@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "gen:meta": "bun run scripts/gen-blog-meta.ts",
+    "gen:meta": "bun run scripts/gen-meta.ts",
     "build": "bun run gen:meta && astro build",
     "preview": "astro preview",
     "check": "astro check"

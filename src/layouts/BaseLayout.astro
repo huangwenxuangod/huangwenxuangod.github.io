@@ -10,6 +10,10 @@ const pageTitle = title
   : "文轩的自由之路";
 const metaDescription =
   description || "记录通往自由路上每一个值得思考的瞬间。";
+
+const path = Astro.url.pathname;
+const isBlogActive = path === "/" || path.startsWith("/posts/");
+const isDiaryActive = path === "/diaries" || path.startsWith("/diaries/");
 ---
 
 <!doctype html>
@@ -55,6 +59,10 @@ const metaDescription =
   <body>
     <header class="site-header">
       <a href="/" class="site-title">文轩的自由之路</a>
+      <nav class="site-nav">
+        <a href="/" class:list={["nav-link", { active: isBlogActive }]}>博客</a>
+        <a href="/diaries" class:list={["nav-link", { active: isDiaryActive }]}>日记</a>
+      </nav>
       <button class="theme-btn" id="theme-toggle" aria-label="切换明暗模式">
         <svg class="icon-moon" viewBox="0 0 14 14" fill="none" aria-hidden="true">
           <path
