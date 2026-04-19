@@ -58,13 +58,16 @@ const isDiaryActive = path === "/diaries" || path.startsWith("/diaries/");
 
   <body>
     <header class="site-header">
-      <div class="header-inner">
-        <a href="/" class="site-title">文轩的自由之路</a>
-        <nav class="site-nav">
-          <a href="/" class:list={["nav-link", { active: isBlogActive }]}>博客</a>
-          <a href="/diaries" class:list={["nav-link", { active: isDiaryActive }]}>日记</a>
-        </nav>
-        <button class="theme-btn" id="theme-toggle" aria-label="切换明暗模式">
+      <a href="/" class="site-title">文轩的自由之路</a>
+      <div class="header-toggle-wrapper">
+        <div class="header-toggle-inner">
+          <nav class="site-nav">
+            <a href="/" class:list={["nav-link", { active: isBlogActive }]}>博客</a>
+            <a href="/diaries" class:list={["nav-link", { active: isDiaryActive }]}>日记</a>
+          </nav>
+        </div>
+      </div>
+      <button class="theme-btn" id="theme-toggle" aria-label="切换明暗模式">
         <svg class="icon-moon" viewBox="0 0 14 14" fill="none" aria-hidden="true">
           <path
             d="M12.5 8.5A5.5 5.5 0 0 1 5.5 1.5a.5.5 0 0 0-.6.6A5.5 5.5 0 1 0 12.4 9.1a.5.5 0 0 0-.6-.6z"
@@ -85,7 +88,6 @@ const isDiaryActive = path === "/diaries" || path.startsWith("/diaries/");
           <line x1="3.78" y1="10.22" x2="2.93" y2="11.07" stroke="currentColor" stroke-width="0.9" stroke-linecap="round"></line>
         </svg>
       </button>
-      </div>
     </header>
 
     <main>
