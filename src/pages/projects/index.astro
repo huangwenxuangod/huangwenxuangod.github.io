@@ -1,0 +1,48 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import meta from "../../content/projects/_meta.json";
+
+type MetaItem = {
+  id: string;
+  slug: string;
+  title: string;
+  date: string;
+  description?: string;
+};
+
+const projects = meta as MetaItem[];
+
+function formatDateDot(ymd: string): string {
+  const [y, m, d] = ymd.split("-");
+  return `${y}.${m}.${d}`;
+}
+---
+
+<BaseLayout title="项目" description="把想法变成系统，把混乱变成流程。">
+  <section class="page-shell">
+    <header class="page-hero">
+      <span class="eyebrow">Projects</span>
+      <h1>把想法变成系统，把混乱变成流程。</h1>
+      <p>项目用来记录真实推进过的系统、实验、原型和长期工程。</p>
+    </header>
+
+    {
+      projects.length > 0 ? (
+        <div class="card-grid">
+          {projects.map((item) => (
+            <a class="feature-card large" href={`/projects/${item.slug}/`}>
+              <span class="item-date">{formatDateDot(item.date)}</span>
+              <strong>{item.title}</strong>
+              {item.description && <p>{item.description}</p>}
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="empty-panel tall">
+          <span>项目示意区</span>
+          <p>未来每个项目会有背景、动作、结果、复盘，以及流程图/截图/架构图位置。</p>
+        </div>
+      )
+    }
+  </section>
+</BaseLayout>

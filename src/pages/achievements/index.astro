@@ -1,0 +1,48 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import meta from "../../content/achievements/_meta.json";
+
+type MetaItem = {
+  id: string;
+  slug: string;
+  title: string;
+  date: string;
+  description?: string;
+};
+
+const achievements = meta as MetaItem[];
+
+function formatDateDot(ymd: string): string {
+  const [y, m, d] = ymd.split("-");
+  return `${y}.${m}.${d}`;
+}
+---
+
+<BaseLayout title="成果" description="可验证的结果、里程碑和复盘。">
+  <section class="page-shell">
+    <header class="page-hero">
+      <span class="eyebrow">Achievements</span>
+      <h1>不是所有过程都重要，能被验证的结果更重要。</h1>
+      <p>成果页用来沉淀里程碑、数据、作品发布、案例和可复用经验。</p>
+    </header>
+
+    {
+      achievements.length > 0 ? (
+        <div class="card-grid">
+          {achievements.map((item) => (
+            <a class="feature-card large" href={`/achievements/${item.slug}/`}>
+              <span class="item-date">{formatDateDot(item.date)}</span>
+              <strong>{item.title}</strong>
+              {item.description && <p>{item.description}</p>}
+            </a>
+          ))}
+        </div>
+      ) : (
+        <div class="empty-panel tall">
+          <span>成果示意区</span>
+          <p>未来这里会放数据截图、证明链接、增长结果和关键复盘。</p>
+        </div>
+      )
+    }
+  </section>
+</BaseLayout>

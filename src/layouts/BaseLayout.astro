@@ -9,10 +9,13 @@ const pageTitle = title
   ? `${title} · 文轩的自由之路`
   : "文轩的自由之路";
 const metaDescription =
-  description || "记录通往自由路上每一个值得思考的瞬间。";
+  description || "记录思考、项目、成果和通往自由路上的真实过程。";
 
 const path = Astro.url.pathname;
-const isBlogActive = path === "/" || path.startsWith("/posts/");
+const isHomeActive = path === "/";
+const isEssayActive = path.startsWith("/essays/") || path.startsWith("/posts/");
+const isProjectActive = path.startsWith("/projects/");
+const isAchievementActive = path.startsWith("/achievements/");
 const isDiaryActive = path === "/diaries" || path.startsWith("/diaries/");
 ---
 
@@ -58,11 +61,17 @@ const isDiaryActive = path === "/diaries" || path.startsWith("/diaries/");
 
   <body>
     <header class="site-header">
-      <a href="/" class="site-title">文轩的自由之路</a>
+      <a href="/" class="site-title">
+        <span class="site-mark">WX</span>
+        <span>文轩的自由之路</span>
+      </a>
       <div class="header-toggle-wrapper">
         <div class="header-toggle-inner">
           <nav class="site-nav">
-            <a href="/" class:list={["nav-link", { active: isBlogActive }]}>博客</a>
+            <a href="/" class:list={["nav-link", { active: isHomeActive }]}>首页</a>
+            <a href="/essays" class:list={["nav-link", { active: isEssayActive }]}>思考</a>
+            <a href="/projects" class:list={["nav-link", { active: isProjectActive }]}>项目</a>
+            <a href="/achievements" class:list={["nav-link", { active: isAchievementActive }]}>成果</a>
             <a href="/diaries" class:list={["nav-link", { active: isDiaryActive }]}>日记</a>
           </nav>
         </div>

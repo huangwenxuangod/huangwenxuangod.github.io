@@ -3,7 +3,7 @@ import { execFileSync } from "node:child_process";
 import { readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { extname, join, relative } from "node:path";
 
-type CollectionType = "blog" | "diary";
+type CollectionType = "blog" | "diary" | "projects" | "achievements";
 
 type MetaItem = {
   id: string;
@@ -125,7 +125,11 @@ function generateMeta(collectionType: CollectionType) {
     let date: string;
     let description: string | undefined;
 
-    if (collectionType === "blog") {
+    if (collectionType === "diary") {
+      title = "";
+      slug = slugifyHash(raw);
+      description = undefined;
+    } else {
       title =
         (typeof data.title === "string" && data.title.trim()) ||
         extractFirstH1(body) ||
@@ -134,10 +138,6 @@ function generateMeta(collectionType: CollectionType) {
       slug = slugifyTitle(title);
       description =
         typeof data.description === "string" && data.description.trim() ? data.description.trim() : undefined;
-    } else {
-      title = "";
-      slug = slugifyHash(raw);
-      description = undefined;
     }
 
     date =
@@ -158,3 +158,5 @@ function generateMeta(collectionType: CollectionType) {
 
 generateMeta("blog");
 generateMeta("diary");
+generateMeta("projects");
+generateMeta("achievements");

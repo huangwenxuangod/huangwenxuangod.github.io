@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import meta from "../../content/blog/_meta.json";
+import meta from "../../content/achievements/_meta.json";
 import { getCollection } from "astro:content";
 
 type MetaItem = {
@@ -22,54 +22,38 @@ export async function getStaticPaths() {
 }
 
 const { id } = Astro.props as { id: string };
-const collection = await getCollection("blog");
+const collection = await getCollection("achievements");
 const entry = collection.find((e) => e.id === id);
 
 if (!entry) {
-  throw new Error(`Missing blog entry for id: ${id}`);
+  throw new Error(`Missing achievement entry for id: ${id}`);
 }
 
 const m = (meta as MetaItem[]).find((p) => p.id === id);
 const { Content } = await entry.render();
-
-const all = meta as MetaItem[];
-const currentIndex = all.findIndex((p) => p.id === id);
-const prev = currentIndex >= 0 ? all[currentIndex + 1] : undefined;
-const next = currentIndex >= 0 ? all[currentIndex - 1] : undefined;
 ---
+
 <BaseLayout title={m?.title} description={m?.description}>
-  <div class="article-wrap">
-    <div style="margin-bottom: 32px;">
-      <a href="/essays" class="back-btn">
+  <article class="article-wrap case-wrap">
+    <div class="article-topline">
+      <a href="/achievements" class="back-btn">
         <svg viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path d="M5 1L1 5l4 4M1 5h10" stroke="currentColor" stroke-width="0.9" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
-        返回思考
+        返回成果
       </a>
     </div>
 
     <div class="article-meta">{formatDateMid(m?.date ?? "0000-00-00")}</div>
-    <h1 class="article-title">{m?.title ?? entry.data.title ?? "未命名"}</h1>
+    <h1 class="article-title">{m?.title ?? entry.data.title}</h1>
+
+    <div class="figure-placeholder">
+      <span>证据图位置</span>
+      <small>数据图 / 截图 / 链接证明 / 前后对比</small>
+    </div>
 
     <div class="article-body">
       <Content />
     </div>
-
-    {(prev || next) && (
-      <nav class="post-nav" aria-label="文章导航">
-        {next && (
-          <a href={`/essays/${next.slug}/`}>
-            <span class="nav-label">上一篇</span>
-            {next.title}
-          </a>
-        )}
-        {prev && (
-          <a href={`/essays/${prev.slug}/`} class="nav-next">
-            <span class="nav-label">下一篇</span>
-            {prev.title}
-          </a>
-        )}
-      </nav>
-    )}
-  </div>
+  </article>
 </BaseLayout>

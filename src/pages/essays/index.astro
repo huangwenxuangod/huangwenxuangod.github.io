@@ -1,0 +1,41 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import meta from "../../content/blog/_meta.json";
+
+type MetaItem = {
+  id: string;
+  slug: string;
+  title: string;
+  date: string;
+  description?: string;
+};
+
+const posts = meta as MetaItem[];
+
+function formatDateDot(ymd: string): string {
+  const [y, m, d] = ymd.split("-");
+  return `${y}.${m}.${d}`;
+}
+---
+
+<BaseLayout title="思考" description="关于 AI、产品、商业、内容和自由之路的长期思考。">
+  <section class="page-shell">
+    <header class="page-hero">
+      <span class="eyebrow">Essays</span>
+      <h1>思考不是装饰品，是行动前的拆解。</h1>
+      <p>关于 AI、产品、商业、内容和自由之路的长期记录。</p>
+    </header>
+
+    <div class="archive-list">
+      {
+        posts.map((post) => (
+          <a class="post-row" href={`/essays/${post.slug}/`}>
+            <span class="post-date">{formatDateDot(post.date)}</span>
+            <span class="post-title">{post.title}</span>
+            <span class="post-arrow">→</span>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>
