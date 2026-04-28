@@ -10,8 +10,13 @@
     "check": "bun node_modules/astro/astro.js check"
   },
   "dependencies": {
+    "@astrojs/react": "^5.0.4",
     "@astrojs/rss": "^4.0.0",
-    "astro": "^5.0.0"
+    "astro": "^5.0.0",
+    "framer-motion": "^12.38.0",
+    "lucide-react": "^1.11.0",
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5"
   },
   "devDependencies": {
     "typescript": "^5.0.0"
