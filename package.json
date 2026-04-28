@@ -3,11 +3,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "astro dev",
-    "gen:meta": "bun run scripts/gen-meta.ts",
-    "build": "bun run gen:meta && astro build",
-    "preview": "astro preview",
-    "check": "astro check"
+    "dev": "bun node_modules/astro/astro.js dev",
+    "gen:meta": "bun scripts/gen-meta.ts",
+    "build": "bun scripts/gen-meta.ts && bun node_modules/astro/astro.js build",
+    "preview": "bun node_modules/astro/astro.js preview",
+    "check": "bun node_modules/astro/astro.js check"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.0",
