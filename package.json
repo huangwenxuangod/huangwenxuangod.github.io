@@ -12,13 +12,11 @@
   "dependencies": {
     "@astrojs/react": "^5.0.4",
     "@astrojs/rss": "^4.0.0",
-    "@tailwindcss/vite": "^4.2.4",
     "astro": "^5.0.0",
     "framer-motion": "^12.38.0",
     "lucide-react": "^1.11.0",
     "react": "^19.2.5",
-    "react-dom": "^19.2.5",
-    "tailwindcss": "^4.2.4"
+    "react-dom": "^19.2.5"
   },
   "devDependencies": {
     "typescript": "^5.0.0"
