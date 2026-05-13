@@ -5,8 +5,10 @@ const blog = defineCollection({
   schema: z.object({
     title: z.string().optional(),
     date: z.coerce.date().optional(),
+    updated: z.coerce.date().optional(),
     description: z.string().optional(),
     tags: z.array(z.string()).optional(),
+    indexable: z.boolean().optional(),
     featured: z.boolean().optional()
   })
 });
@@ -21,10 +23,14 @@ const projects = defineCollection({
   schema: z.object({
     title: z.string(),
     date: z.coerce.date().optional(),
+    updated: z.coerce.date().optional(),
     summary: z.string().optional(),
+    description: z.string().optional(),
     status: z.string().optional(),
     role: z.string().optional(),
     stack: z.array(z.string()).optional(),
+    tags: z.array(z.string()).optional(),
+    indexable: z.boolean().optional(),
     links: z
       .array(
         z.object({
@@ -42,10 +48,14 @@ const achievements = defineCollection({
   schema: z.object({
     title: z.string(),
     date: z.coerce.date().optional(),
+    updated: z.coerce.date().optional(),
     summary: z.string().optional(),
+    description: z.string().optional(),
     metric: z.string().optional(),
     proof: z.string().optional(),
     relatedProject: z.string().optional(),
+    tags: z.array(z.string()).optional(),
+    indexable: z.boolean().optional(),
     featured: z.boolean().optional()
   })
 });

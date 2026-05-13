@@ -10,7 +10,12 @@ type MetaItem = {
   slug: string;
   title: string;
   date: string;
+  updated: string;
   description?: string;
+  tags: string[];
+  wordCount: number;
+  readingTime: number;
+  indexable: boolean;
 };
 
 function isMarkdownFile(fileName: string) {
@@ -34,11 +39,11 @@ function parseFrontMatter(source: string): { data: Record<string, unknown>; body
   if (!(source.startsWith("---\n") || source.startsWith("---\r\n"))) {
     return { data: {}, body: source };
   }
-  const parts = source.split(/^---\s*$/m, 3);
-  if (parts.length < 3) return { data: {}, body: source };
+  const match = source.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
+  if (!match) return { data: {}, body: source };
 
-  const raw = parts[1];
-  const body = parts[2];
+  const raw = match[1];
+  const body = source.slice(match[0].length);
   const data: Record<string, unknown> = {};
 
   for (const line of raw.split(/\r?\n/)) {
@@ -48,8 +53,18 @@ function parseFrontMatter(source: string): { data: Record<string, unknown>; body
     if (idx === -1) continue;
     const key = trimmed.slice(0, idx).trim();
     let value = trimmed.slice(idx + 1).trim();
-    value = value.replace(/^['"]|['"]$/g, "");
-    data[key] = value;
+    if (value === "true" || value === "false") {
+      data[key] = value === "true";
+    } else if (value.startsWith("[") && value.endsWith("]")) {
+      data[key] = value
+        .slice(1, -1)
+        .split(",")
+        .map((item) => item.trim().replace(/^['"]|['"]$/g, ""))
+        .filter(Boolean);
+    } else {
+      value = value.replace(/^['"]|['"]$/g, "");
+      data[key] = value;
+    }
   }
 
   return { data, body };
@@ -64,6 +79,61 @@ function extractFirstH1(body: string) {
     break;
   }
   return null;
+}
+
+function stripMarkdown(source: string) {
+  return source
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/`([^`]+)`/g, "$1")
+    .replace(/!\[[^\]]*\]\([^)]+\)/g, " ")
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    .replace(/^#{1,6}\s+/gm, "")
+    .replace(/^[-*+]\s+/gm, "")
+    .replace(/^\d+\.\s+/gm, "")
+    .replace(/[*_>#~-]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function extractDescription(body: string) {
+  const withoutTitle = body.replace(/^#\s+.+$/m, "");
+  for (const block of withoutTitle.split(/\n\s*\n/)) {
+    const text = stripMarkdown(block);
+    if (text.length >= 28) return text.slice(0, 120);
+  }
+  const fallback = stripMarkdown(body);
+  return fallback ? fallback.slice(0, 120) : undefined;
+}
+
+function normalizeTags(value: unknown): string[] {
+  if (Array.isArray(value)) {
+    return value.map(String).map((tag) => tag.trim()).filter(Boolean);
+  }
+  if (typeof value === "string" && value.trim()) {
+    return value
+      .split(/[，,]/)
+      .map((tag) => tag.trim())
+      .filter(Boolean);
+  }
+  return [];
+}
+
+function countWordsForMixedText(body: string) {
+  const text = stripMarkdown(body);
+  const cjk = text.match(/[\u4e00-\u9fff]/g)?.length ?? 0;
+  const latin = text
+    .replace(/[\u4e00-\u9fff]/g, " ")
+    .match(/[A-Za-z0-9]+(?:[-'][A-Za-z0-9]+)*/g)?.length ?? 0;
+  return cjk + latin;
+}
+
+function getBoolean(value: unknown, fallback: boolean) {
+  if (typeof value === "boolean") return value;
+  if (typeof value === "string") {
+    if (value === "true") return true;
+    if (value === "false") return false;
+  }
+  return fallback;
 }
 
 function slugifyTitle(title: string) {
@@ -124,11 +194,13 @@ function generateMeta(collectionType: CollectionType) {
     let slug: string;
     let date: string;
     let description: string | undefined;
+    let tags: string[];
 
     if (collectionType === "diary") {
       title = "";
       slug = slugifyHash(raw);
       description = undefined;
+      tags = ["日记"];
     } else {
       title =
         (typeof data.title === "string" && data.title.trim()) ||
@@ -137,19 +209,43 @@ function generateMeta(collectionType: CollectionType) {
 
       slug = slugifyTitle(title);
       description =
-        typeof data.description === "string" && data.description.trim() ? data.description.trim() : undefined;
+        (typeof data.description === "string" && data.description.trim()) ||
+        (typeof data.summary === "string" && data.summary.trim()) ||
+        extractDescription(body);
+      tags = normalizeTags(data.tags);
     }
 
     date =
       (typeof data.date === "string" && data.date.trim()) ||
       getGitDate(abs) ||
       toYmd(statSync(abs).mtime);
+    const updated =
+      (typeof data.updated === "string" && data.updated.trim()) ||
+      getGitDate(abs) ||
+      toYmd(statSync(abs).mtime);
+    const wordCount = countWordsForMixedText(body);
+    const readingTime = Math.max(1, Math.ceil(wordCount / 500));
+    const indexable = getBoolean(
+      data.indexable,
+      collectionType === "diary" ? wordCount >= 300 : true
+    );
 
     const count = usedSlugs.get(slug) ?? 0;
     usedSlugs.set(slug, count + 1);
     if (count > 0) slug = `${slug}-${count + 1}`;
 
-    items.push({ id, slug, title, date, description });
+    items.push({
+      id,
+      slug,
+      title,
+      date,
+      updated,
+      description,
+      tags,
+      wordCount,
+      readingTime,
+      indexable
+    });
   }
 
   items.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0));

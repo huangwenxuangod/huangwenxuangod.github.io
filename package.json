@@ -5,6 +5,11 @@
   "scripts": {
     "dev": "bun node_modules/astro/astro.js dev",
     "gen:meta": "bun scripts/gen-meta.ts",
+    "geo:audit": "bun scripts/gen-meta.ts && bun scripts/geo-audit.ts",
+    "cluster:audit": "bun scripts/gen-meta.ts && bun scripts/cluster-audit.ts",
+    "link:suggest": "bun scripts/gen-meta.ts && bun scripts/internal-link-suggest.ts",
+    "answer:audit": "bun scripts/gen-meta.ts && bun scripts/answer-block-audit.ts",
+    "geo:execute": "bun scripts/gen-meta.ts && bun scripts/geo-audit.ts && bun scripts/cluster-audit.ts && bun scripts/internal-link-suggest.ts && bun scripts/answer-block-audit.ts",
     "build": "bun scripts/gen-meta.ts && bun node_modules/astro/astro.js build",
     "preview": "bun node_modules/astro/astro.js preview",
     "check": "bun node_modules/astro/astro.js check"

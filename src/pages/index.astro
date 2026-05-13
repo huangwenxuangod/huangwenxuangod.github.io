@@ -5,6 +5,7 @@ import blogMeta from "../content/blog/_meta.json";
 import diaryMeta from "../content/diary/_meta.json";
 import projectMeta from "../content/projects/_meta.json";
 import achievementMeta from "../content/achievements/_meta.json";
+import { personJsonLd, websiteJsonLd } from "../lib/seo";
 
 type MetaItem = {
   id: string;
@@ -22,9 +23,13 @@ const timeline = [
   ...essays.slice(0, 3).map((item) => ({ ...item, type: "思考", href: `/essays/${item.slug}/` })),
   ...diaries.slice(0, 2).map((item) => ({ ...item, title: "日记记录", type: "日记", href: `/diaries/${item.slug}/` }))
 ].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0)).slice(0, 4);
+const site = Astro.site ?? new URL("https://huangwenxuangod.github.io");
 ---
 
-<BaseLayout>
+<BaseLayout
+  description="文轩长期记录 AI 产品、自动化系统、内容创业、独立开发和通往自由之路的真实实践。"
+  jsonLd={[personJsonLd(site), websiteJsonLd(site)]}
+>
   <AnimatedHome
     client:load
     essays={essays}

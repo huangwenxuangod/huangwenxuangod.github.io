@@ -922,6 +922,26 @@ main {
   letter-spacing: 0;
 }
 
+.article-tags {
+  margin: -14px 0 32px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.article-tags span,
+.topic-chips span {
+  min-height: 30px;
+  padding: 0 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
 .article-body {
   color: var(--text);
   font-size: 16px;
@@ -1079,6 +1099,101 @@ main {
   text-align: right;
 }
 
+.related-posts {
+  margin-top: 34px;
+  padding-top: 34px;
+  border-top: 1px solid var(--border);
+}
+
+.related-label {
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.related-posts h2 {
+  margin-top: 10px;
+  font-size: 22px;
+  line-height: 1.35;
+}
+
+.related-posts div {
+  margin-top: 16px;
+  display: grid;
+  gap: 10px;
+}
+
+.related-posts a {
+  padding: 14px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.5;
+}
+
+.related-posts a:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.about-block {
+  min-height: 260px;
+  padding: clamp(24px, 4vw, 42px);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel);
+}
+
+.about-block h2 {
+  margin-top: 12px;
+  color: var(--text);
+  font-size: clamp(26px, 3.2vw, 42px);
+  line-height: 1.15;
+}
+
+.about-block p {
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.topic-chips,
+.about-links {
+  margin-top: 22px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.about-links a {
+  min-height: 38px;
+  padding: 0 13px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.about-links a:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
 .post-list {
   width: min(var(--content), calc(100% - 48px));
   margin: 0 auto;
@@ -1143,6 +1258,7 @@ main {
   .card-grid,
   .focus-row,
   .proof-item,
+  .about-grid,
   .road-node {
     grid-template-columns: 1fr;
   }

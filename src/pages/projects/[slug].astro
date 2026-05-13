@@ -2,13 +2,18 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import meta from "../../content/projects/_meta.json";
 import { getCollection } from "astro:content";
+import { absoluteUrl, breadcrumbJsonLd, personJsonLd, SITE_NAME } from "../../lib/seo";
 
 type MetaItem = {
   id: string;
   slug: string;
   title: string;
   date: string;
+  updated?: string;
   description?: string;
+  tags?: string[];
+  wordCount?: number;
+  indexable?: boolean;
 };
 
 function formatDateMid(ymd: string) {
@@ -31,9 +36,43 @@ if (!entry) {
 
 const m = (meta as MetaItem[]).find((p) => p.id === id);
 const { Content } = await entry.render();
+const site = Astro.site ?? new URL("https://huangwenxuangod.github.io");
+const title = m?.title ?? entry.data.title;
+const pagePath = `/projects/${m?.slug}/`;
+const projectUrl = absoluteUrl(pagePath, site);
+const tags = m?.tags ?? entry.data.tags ?? entry.data.stack ?? [];
+const projectJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "@id": `${projectUrl}#creativework`,
+  name: title,
+  headline: title,
+  description: m?.description ?? entry.data.summary,
+  url: projectUrl,
+  datePublished: m?.date,
+  dateModified: m?.updated ?? m?.date,
+  author: { "@id": `${absoluteUrl("/about/", site)}#person` },
+  creator: { "@id": `${absoluteUrl("/about/", site)}#person` },
+  keywords: tags,
+  inLanguage: "zh-CN"
+};
 ---
 
-<BaseLayout title={m?.title} description={m?.description}>
+<BaseLayout
+  title={title}
+  description={m?.description ?? entry.data.summary}
+  canonical={pagePath}
+  noindex={m?.indexable === false}
+  jsonLd={[
+    personJsonLd(site),
+    projectJsonLd,
+    breadcrumbJsonLd([
+      { name: SITE_NAME, path: "/" },
+      { name: "项目", path: "/projects/" },
+      { name: title, path: pagePath }
+    ], site)
+  ]}
+>
   <article class="article-wrap case-wrap">
     <div class="article-topline">
       <a href="/projects" class="back-btn">
@@ -45,7 +84,7 @@ const { Content } = await entry.render();
     </div>
 
     <div class="article-meta">{formatDateMid(m?.date ?? "0000-00-00")}</div>
-    <h1 class="article-title">{m?.title ?? entry.data.title}</h1>
+    <h1 class="article-title">{title}</h1>
 
     <div class="figure-placeholder">
       <span>示意图位置</span>

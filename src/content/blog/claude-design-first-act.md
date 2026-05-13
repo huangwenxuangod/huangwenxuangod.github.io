@@ -1,6 +1,9 @@
 ---
 title: 没有人把 Claude Design 当成一个剧本来看，但如果你这么看，你会发现现在只是第一幕结尾
 date: 2026-04-21
+updated: 2026-05-13
+description: 大多数人看到的是 Figma 跌了、AI 又赢了，我更关心的是 Claude Design 背后那条从设计到代码再到产品交付的更大剧本。
+tags: [Claude Design, Anthropic, Figma, AI设计, 产品趋势, 创业观察]
 ---
 # 没有人把 Claude Design 当成一个剧本来看，但如果你这么看，你会发现现在只是第一幕结尾
 

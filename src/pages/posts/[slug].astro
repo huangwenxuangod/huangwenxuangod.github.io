@@ -2,13 +2,19 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import meta from "../../content/blog/_meta.json";
 import { getCollection } from "astro:content";
+import { absoluteUrl, breadcrumbJsonLd, personJsonLd, SITE_NAME } from "../../lib/seo";
 
 type MetaItem = {
   id: string;
   slug: string;
   title: string;
   date: string;
+  updated?: string;
   description?: string;
+  tags?: string[];
+  wordCount?: number;
+  readingTime?: number;
+  indexable?: boolean;
 };
 
 function formatDateMid(ymd: string) {
@@ -36,8 +42,48 @@ const all = meta as MetaItem[];
 const currentIndex = all.findIndex((p) => p.id === id);
 const prev = currentIndex >= 0 ? all[currentIndex + 1] : undefined;
 const next = currentIndex >= 0 ? all[currentIndex - 1] : undefined;
+const site = Astro.site ?? new URL("https://huangwenxuangod.github.io");
+const title = m?.title ?? entry.data.title ?? "未命名";
+const canonicalPath = `/essays/${m?.slug}/`;
+const articleUrl = absoluteUrl(canonicalPath, site);
+const tags = m?.tags ?? entry.data.tags ?? [];
+const articleJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "@id": `${articleUrl}#article`,
+  headline: title,
+  description: m?.description,
+  url: articleUrl,
+  datePublished: m?.date,
+  dateModified: m?.updated ?? m?.date,
+  author: { "@id": `${absoluteUrl("/about/", site)}#person` },
+  publisher: { "@id": `${absoluteUrl("/about/", site)}#person` },
+  mainEntityOfPage: articleUrl,
+  keywords: tags,
+  articleSection: tags[0] ?? "思考",
+  wordCount: m?.wordCount,
+  isAccessibleForFree: true,
+  inLanguage: "zh-CN"
+};
 ---
-<BaseLayout title={m?.title} description={m?.description}>
+<BaseLayout
+  title={title}
+  description={m?.description}
+  type="article"
+  canonical={canonicalPath}
+  publishedTime={m?.date}
+  modifiedTime={m?.updated ?? m?.date}
+  noindex
+  jsonLd={[
+    personJsonLd(site),
+    articleJsonLd,
+    breadcrumbJsonLd([
+      { name: SITE_NAME, path: "/" },
+      { name: "思考", path: "/essays/" },
+      { name: title, path: canonicalPath }
+    ], site)
+  ]}
+>
   <div class="article-wrap">
     <div style="margin-bottom: 32px;">
       <a href="/essays" class="back-btn">
@@ -48,8 +94,16 @@ const next = currentIndex >= 0 ? all[currentIndex - 1] : undefined;
       </a>
     </div>
 
-    <div class="article-meta">{formatDateMid(m?.date ?? "0000-00-00")}</div>
-    <h1 class="article-title">{m?.title ?? entry.data.title ?? "未命名"}</h1>
+    <div class="article-meta">
+      {formatDateMid(m?.date ?? "0000-00-00")}
+      {m?.readingTime && <span> · {m.readingTime} 分钟读完</span>}
+    </div>
+    <h1 class="article-title">{title}</h1>
+    {tags.length > 0 && (
+      <div class="article-tags" aria-label="文章标签">
+        {tags.map((tag) => <span>{tag}</span>)}
+      </div>
+    )}
 
     <div class="article-body">
       <Content />

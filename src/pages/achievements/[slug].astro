@@ -2,13 +2,18 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import meta from "../../content/achievements/_meta.json";
 import { getCollection } from "astro:content";
+import { absoluteUrl, breadcrumbJsonLd, personJsonLd, SITE_NAME } from "../../lib/seo";
 
 type MetaItem = {
   id: string;
   slug: string;
   title: string;
   date: string;
+  updated?: string;
   description?: string;
+  tags?: string[];
+  wordCount?: number;
+  indexable?: boolean;
 };
 
 function formatDateMid(ymd: string) {
@@ -31,9 +36,48 @@ if (!entry) {
 
 const m = (meta as MetaItem[]).find((p) => p.id === id);
 const { Content } = await entry.render();
+const site = Astro.site ?? new URL("https://huangwenxuangod.github.io");
+const title = m?.title ?? entry.data.title;
+const pagePath = `/achievements/${m?.slug}/`;
+const achievementUrl = absoluteUrl(pagePath, site);
+const tags = m?.tags ?? entry.data.tags ?? [];
+const achievementJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "@id": `${achievementUrl}#article`,
+  headline: title,
+  description: m?.description ?? entry.data.summary,
+  url: achievementUrl,
+  datePublished: m?.date,
+  dateModified: m?.updated ?? m?.date,
+  author: { "@id": `${absoluteUrl("/about/", site)}#person` },
+  publisher: { "@id": `${absoluteUrl("/about/", site)}#person` },
+  keywords: tags,
+  articleSection: "成果",
+  wordCount: m?.wordCount,
+  isAccessibleForFree: true,
+  inLanguage: "zh-CN"
+};
 ---
 
-<BaseLayout title={m?.title} description={m?.description}>
+<BaseLayout
+  title={title}
+  description={m?.description ?? entry.data.summary}
+  type="article"
+  canonical={pagePath}
+  publishedTime={m?.date}
+  modifiedTime={m?.updated ?? m?.date}
+  noindex={m?.indexable === false}
+  jsonLd={[
+    personJsonLd(site),
+    achievementJsonLd,
+    breadcrumbJsonLd([
+      { name: SITE_NAME, path: "/" },
+      { name: "成果", path: "/achievements/" },
+      { name: title, path: pagePath }
+    ], site)
+  ]}
+>
   <article class="article-wrap case-wrap">
     <div class="article-topline">
       <a href="/achievements" class="back-btn">
@@ -45,7 +89,7 @@ const { Content } = await entry.render();
     </div>
 
     <div class="article-meta">{formatDateMid(m?.date ?? "0000-00-00")}</div>
-    <h1 class="article-title">{m?.title ?? entry.data.title}</h1>
+    <h1 class="article-title">{title}</h1>
 
     <div class="figure-placeholder">
       <span>证据图位置</span>

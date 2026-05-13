@@ -2,14 +2,37 @@
 type Props = {
   title?: string;
   description?: string;
+  canonical?: string;
+  image?: string;
+  type?: "website" | "article";
+  publishedTime?: string;
+  modifiedTime?: string;
+  noindex?: boolean;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 };
 
-const { title, description } = Astro.props;
+const {
+  title,
+  description,
+  canonical,
+  image,
+  type = "website",
+  publishedTime,
+  modifiedTime,
+  noindex = false,
+  jsonLd
+} = Astro.props;
 const pageTitle = title
   ? `${title} · 文轩的自由之路`
   : "文轩的自由之路";
 const metaDescription =
   description || "记录思考、项目、成果和通往自由路上的真实过程。";
+const site = Astro.site ?? new URL("https://huangwenxuangod.github.io");
+const canonicalUrl = canonical
+  ? new URL(canonical, site).toString()
+  : new URL(Astro.url.pathname, site).toString();
+const imageUrl = new URL(image || "/icon.png", site).toString();
+const jsonLdItems = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
 
 const path = Astro.url.pathname;
 const isHomeActive = path === "/";
@@ -17,6 +40,7 @@ const isEssayActive = path.startsWith("/essays/") || path.startsWith("/posts/");
 const isProjectActive = path.startsWith("/projects/");
 const isAchievementActive = path.startsWith("/achievements/");
 const isDiaryActive = path === "/diaries" || path.startsWith("/diaries/");
+const isAboutActive = path === "/about" || path.startsWith("/about/");
 ---
 
 <!doctype html>
@@ -26,6 +50,23 @@ const isDiaryActive = path === "/diaries" || path.startsWith("/diaries/");
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{pageTitle}</title>
     <meta name="description" content={metaDescription} />
+    <meta name="robots" content={noindex ? "noindex,follow" : "index,follow"} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={metaDescription} />
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content="文轩的自由之路" />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:locale" content="zh_CN" />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={metaDescription} />
+    <meta name="twitter:image" content={imageUrl} />
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -39,6 +80,10 @@ const isDiaryActive = path === "/diaries" || path.startsWith("/diaries/");
       title="文轩的自由之路"
       href="/feed.xml"
     />
+
+    {jsonLdItems.map((item) => (
+      <script type="application/ld+json" set:html={JSON.stringify(item)} />
+    ))}
 
     <!-- Styles -->
     <link rel="stylesheet" href="/assets/css/style.css" />
@@ -73,6 +118,7 @@ const isDiaryActive = path === "/diaries" || path.startsWith("/diaries/");
             <a href="/projects" class:list={["nav-link", { active: isProjectActive }]}>项目</a>
             <a href="/achievements" class:list={["nav-link", { active: isAchievementActive }]}>成果</a>
             <a href="/diaries" class:list={["nav-link", { active: isDiaryActive }]}>日记</a>
+            <a href="/about" class:list={["nav-link", { active: isAboutActive }]}>关于</a>
           </nav>
         </div>
       </div>

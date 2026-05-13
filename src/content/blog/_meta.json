@@ -1,92 +1,286 @@
 [
   {
-    "id": "产品创业的思路.md",
+    "id": "product-startup-thinking.md",
     "slug": "p102de197c2",
     "title": "产品创业的思路",
-    "date": "2026-04-23"
+    "date": "2026-04-23",
+    "updated": "2026-05-13",
+    "description": "我现在越来越相信，产品创业最重要的不是一开始把功能做多全，而是先找到一个你自己痛得最深、愿意反复使用、还能低成本验证变现的闭环。",
+    "tags": [
+      "产品创业",
+      "独立开发",
+      "AI创业",
+      "商业模式",
+      "产品思维",
+      "副业"
+    ],
+    "wordCount": 1553,
+    "readingTime": 4,
+    "indexable": true
   },
   {
-    "id": "产品创意的来源.md",
+    "id": "product-success-method.md",
     "slug": "pb5f977f00e",
     "title": "产品怎么做才能成功？",
-    "date": "2026-04-22"
+    "date": "2026-04-22",
+    "updated": "2026-05-13",
+    "description": "我做过不少产品，最后越来越确定一件事：产品能不能成功，决定因素从来不只是功能本身，而是灵感来源、最小构建、真实用户反馈和流量获取能不能连成一个闭环。",
+    "tags": [
+      "产品方法论",
+      "独立开发",
+      "创业",
+      "用户需求",
+      "流量",
+      "AI工具"
+    ],
+    "wordCount": 1358,
+    "readingTime": 3,
+    "indexable": true
   },
   {
-    "id": "没有人把 Claude Design 当成一个剧本来看，但如果你这么看，你会发现现在只是第一幕结尾.md",
+    "id": "claude-design-first-act.md",
     "slug": "claude-design",
     "title": "没有人把 Claude Design 当成一个剧本来看，但如果你这么看，你会发现现在只是第一幕结尾",
-    "date": "2026-04-21"
+    "date": "2026-04-21",
+    "updated": "2026-05-13",
+    "description": "大多数人看到的是 Figma 跌了、AI 又赢了，我更关心的是 Claude Design 背后那条从设计到代码再到产品交付的更大剧本。",
+    "tags": [
+      "Claude Design",
+      "Anthropic",
+      "Figma",
+      "AI设计",
+      "产品趋势",
+      "创业观察"
+    ],
+    "wordCount": 4281,
+    "readingTime": 9,
+    "indexable": true
   },
   {
-    "id": "AI不是替代你，是让你做更多你该做的事.md",
+    "id": "ai-edge-business-model.md",
+    "slug": "ai-edge-ai",
+    "title": "拆解 AI Edge 顶级商业模式：靠内容赚信任，用 AI 飞轮去变现",
+    "date": "2026-04-20",
+    "updated": "2026-05-13",
+    "description": "我重新拆了一遍 AI Edge 的路子，发现它真正强的不是某个 AI 工具，而是把内容、私域、分层变现、AI 提效和资本复投接成了一条很完整的增长飞轮。",
+    "tags": [
+      "AI Edge",
+      "商业模式",
+      "内容创业",
+      "私域",
+      "AI副业",
+      "变现"
+    ],
+    "wordCount": 1360,
+    "readingTime": 3,
+    "indexable": true
+  },
+  {
+    "id": "ai-is-not-replacement.md",
     "slug": "ai",
     "title": "AI不是替代你，是让你做更多你该做的事",
-    "date": "2026-04-20"
+    "date": "2026-04-20",
+    "updated": "2026-05-13",
+    "description": "我用 AI 写初稿踩过一个很真实的坑：产能上去了，灵魂却没了。后来我才想明白，AI 最好的位置不是替代你，而是接手那些谁都能做的重复劳动，让你把时间放回真正只有你能做的事。",
+    "tags": [
+      "AI写作",
+      "内容创作",
+      "效率",
+      "个人成长",
+      "AI工具"
+    ],
+    "wordCount": 1632,
+    "readingTime": 4,
+    "indexable": true
   },
   {
-    "id": "GPT做项目失败后，我终于明白Claude为什么是不可替代的.md",
+    "id": "gpt-claude-why-irreplaceable.md",
     "slug": "gpt-claude",
     "title": "GPT做项目失败后，我终于明白Claude为什么是不可替代的",
-    "date": "2026-04-20"
+    "date": "2026-04-20",
+    "updated": "2026-05-13",
+    "description": "一次定时日报项目失败后，我用 GPT、Gemini 和 Claude 做了同一件事，发现 Claude 真正不可替代的地方不是会聊天，而是会先确认需求、补齐上下文、给出能落地的执行方案。",
+    "tags": [
+      "Claude",
+      "GPT",
+      "Gemini",
+      "AI工具",
+      "AI编程",
+      "项目复盘",
+      "自动化"
+    ],
+    "wordCount": 6910,
+    "readingTime": 14,
+    "indexable": true
   },
   {
-    "id": "代充值服务行业揭秘.md",
+    "id": "pro-membership-pricing.md",
     "slug": "pro",
     "title": "你充Pro会员的钱，一半都是智商税",
-    "date": "2026-04-20"
+    "date": "2026-04-20",
+    "updated": "2026-05-13",
+    "description": "我花了几万块开遍了各种 Pro 会员，最后发现最省钱的方法从来不是自己硬充，而是先分清哪些玩法稳、哪些玩法只是用时间和风险去换一点点便宜。",
+    "tags": [
+      "Pro会员",
+      "订阅",
+      "信息差",
+      "省钱",
+      "AI工具",
+      "副业观察"
+    ],
+    "wordCount": 1661,
+    "readingTime": 4,
+    "indexable": true
   },
   {
     "id": "我扒透了豆包的底层逻辑，它的强，根本不是靠模型.md",
     "slug": "pa3cda0deb4",
     "title": "我扒透了豆包的底层逻辑，它的强，根本不是靠模型",
-    "date": "2026-04-20"
+    "date": "2026-04-20",
+    "updated": "2026-05-13",
+    "description": "我把豆包放回产品竞争里重新看了一遍，最后得出的判断不是“它模型最强”，而是它把入口、场景、价格和数据闭环做成了一套系统，这才是最难复制的部分。",
+    "tags": [
+      "豆包",
+      "AI产品",
+      "大模型",
+      "产品分析",
+      "字节跳动",
+      "AI商业"
+    ],
+    "wordCount": 1722,
+    "readingTime": 4,
+    "indexable": true
   },
   {
-    "id": "拆解 AI Edge 顶级商业模式 靠内容赚信任，用 AI 吃遍全产业链.md",
-    "slug": "ai-edge-ai",
-    "title": "拆解 AI Edge 顶级商业模式：靠内容赚信任，用 AI 飞轮去变现",
-    "date": "2026-04-20"
-  },
-  {
-    "id": "全自动交易系统搭建.md",
-    "slug": "rss",
-    "title": "小白也能懂：加密货币全自动交易系统（RSS+豆包+币安）思路教程",
-    "date": "2026-04-17"
-  },
-  {
-    "id": "内容的诞生，由谜题驱动.md",
+    "id": "content-born-from-puzzles.md",
     "slug": "pa162b9a659",
     "title": "内容：由谜题驱动的诞生",
-    "date": "2026-04-17"
+    "date": "2026-04-17",
+    "updated": "2026-05-13",
+    "description": "我越来越相信，真正有生命力的内容，不是把热点重新讲一遍，而是先找到一个让你非追下去不可的谜题，再围绕这个谜题去做观察、搜集信息和表达判断。",
+    "tags": [
+      "内容创作",
+      "写作方法",
+      "选题",
+      "谜题驱动",
+      "好奇心",
+      "AI写作"
+    ],
+    "wordCount": 1456,
+    "readingTime": 3,
+    "indexable": true
   },
   {
-    "id": "出单多的人，都在重复这7件事（没有复杂技巧，全是可复制的执行）.md",
+    "id": "crypto-auto-trading-rss.md",
+    "slug": "rss",
+    "title": "小白也能懂：加密货币全自动交易系统（RSS+豆包+币安）思路教程",
+    "date": "2026-04-17",
+    "updated": "2026-05-13",
+    "description": "我把自己从零搭自动化交易系统踩过的坑收成了一条最小路径：先找对 RSS 信源，再让 AI 按规则分析，最后接到币安执行，小白也能先跑通完整闭环。",
+    "tags": [
+      "自动化交易",
+      "加密货币",
+      "RSS",
+      "豆包",
+      "币安",
+      "AI工作流"
+    ],
+    "wordCount": 2208,
+    "readingTime": 5,
+    "indexable": true
+  },
+  {
+    "id": "sales-repeatable-seven.md",
     "slug": "7",
     "title": "出单多的人，都在重复这7件事",
-    "date": "2026-04-16"
+    "date": "2026-04-16",
+    "updated": "2026-05-13",
+    "description": "我把身边那些稳定出单的人翻来覆去看了一遍，最后发现他们靠的并不是什么神秘技巧，而是把同一套找需求、建信任、促转化的动作反复做到位。",
+    "tags": [
+      "变现",
+      "流量",
+      "销售",
+      "副业",
+      "小红书",
+      "社群"
+    ],
+    "wordCount": 1817,
+    "readingTime": 4,
+    "indexable": true
   },
   {
-    "id": "别扯主业副业平衡了，你根本不会衔接.md",
+    "id": "main-job-side-hustle-bridge.md",
     "slug": "p275045197f",
     "title": "别扯主业副业平衡了，你根本不会衔接",
-    "date": "2026-04-15"
+    "date": "2026-04-15",
+    "updated": "2026-05-13",
+    "description": "我见过太多人把主业和副业做成对立面，最后两头都垮。真正更有效的思路不是平衡，而是把主业当成副业的练兵场、资源池和过渡跳板。",
+    "tags": [
+      "副业",
+      "主业",
+      "时间管理",
+      "杠杆",
+      "个人成长",
+      "职业路径"
+    ],
+    "wordCount": 1573,
+    "readingTime": 4,
+    "indexable": true
   },
   {
-    "id": "拖延是我最大的朋友.md",
+    "id": "procrastination-my-friend.md",
     "slug": "pfdc58942d8",
     "title": "懒惰：我最大的敌人",
-    "date": "2026-04-15"
+    "date": "2026-04-15",
+    "updated": "2026-05-13",
+    "description": "我后来慢慢发现，很多时候拖延并不只是懒，而是注意力失衡、期待过高和情绪逃避混在一起的结果，真正有用的是学会和它相处，而不是只会骂自己。",
+    "tags": [
+      "拖延",
+      "个人成长",
+      "自我管理",
+      "情绪",
+      "学习",
+      "反思"
+    ],
+    "wordCount": 3365,
+    "readingTime": 7,
+    "indexable": true
   },
   {
-    "id": "Hermes agent抄袭风波及背后黑产链路拆解.md",
+    "id": "hermes-agent-blackmarket.md",
     "slug": "hermes-agent",
     "title": "Hermes agent：抄袭风波下的黑产链路拆解",
-    "date": "2026-04-14"
+    "date": "2026-04-14",
+    "updated": "2026-05-13",
+    "description": "我把 Hermes agent 的抄袭风波往下拆，真正看到的不是一次普通争议，而是一条围绕抄袭、买量、资本包装和平台漏洞运转的黑产链路。",
+    "tags": [
+      "Hermes agent",
+      "开源",
+      "GitHub",
+      "抄袭",
+      "黑产",
+      "AI行业"
+    ],
+    "wordCount": 2959,
+    "readingTime": 6,
+    "indexable": true
   },
   {
-    "id": "intro.md",
+    "id": "personal-intro.md",
     "slug": "p045a570a5f",
     "title": "介绍一下自己：不断追求变化的人",
-    "date": "2026-04-13"
+    "date": "2026-04-13",
+    "updated": "2026-05-13",
+    "description": "这是我对自己的一个阶段性介绍，从循规蹈矩地接受既定路径，到主动追求变化和自由，我想把这段转变留下来，作为后面很多选择的起点。",
+    "tags": [
+      "关于我",
+      "自我介绍",
+      "个人成长",
+      "自由",
+      "变化"
+    ],
+    "wordCount": 524,
+    "readingTime": 2,
+    "indexable": true
   }
 ]

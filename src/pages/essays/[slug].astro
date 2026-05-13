@@ -2,13 +2,25 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import meta from "../../content/blog/_meta.json";
 import { getCollection } from "astro:content";
+import {
+  AUTHOR_NAME,
+  SITE_NAME,
+  absoluteUrl,
+  breadcrumbJsonLd,
+  personJsonLd
+} from "../../lib/seo";
 
 type MetaItem = {
   id: string;
   slug: string;
   title: string;
   date: string;
+  updated?: string;
   description?: string;
+  tags?: string[];
+  wordCount?: number;
+  readingTime?: number;
+  indexable?: boolean;
 };
 
 function formatDateMid(ymd: string) {
@@ -36,9 +48,64 @@ const all = meta as MetaItem[];
 const currentIndex = all.findIndex((p) => p.id === id);
 const prev = currentIndex >= 0 ? all[currentIndex + 1] : undefined;
 const next = currentIndex >= 0 ? all[currentIndex - 1] : undefined;
+const site = Astro.site ?? new URL("https://huangwenxuangod.github.io");
+const title = m?.title ?? entry.data.title ?? "未命名";
+const pagePath = `/essays/${m?.slug}/`;
+const articleUrl = absoluteUrl(pagePath, site);
+const tags = m?.tags ?? entry.data.tags ?? [];
+const related = all
+  .filter((post) => post.id !== id)
+  .map((post) => {
+    const shared = (post.tags ?? []).filter((tag) => tags.includes(tag)).length;
+    return { post, shared };
+  })
+  .filter(({ shared }) => shared > 0)
+  .sort((a, b) => b.shared - a.shared)
+  .map(({ post }) => post)
+  .slice(0, 3);
+const fallbackRelated = related.length > 0 ? related : [next, prev].filter(Boolean).slice(0, 2);
+const articleJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "@id": `${articleUrl}#article`,
+  headline: title,
+  description: m?.description,
+  url: articleUrl,
+  datePublished: m?.date,
+  dateModified: m?.updated ?? m?.date,
+  author: {
+    "@id": `${absoluteUrl("/about/", site)}#person`
+  },
+  publisher: {
+    "@id": `${absoluteUrl("/about/", site)}#person`
+  },
+  mainEntityOfPage: articleUrl,
+  keywords: tags,
+  articleSection: tags[0] ?? "思考",
+  wordCount: m?.wordCount,
+  isAccessibleForFree: true,
+  inLanguage: "zh-CN"
+};
 ---
 
-<BaseLayout title={m?.title} description={m?.description}>
+<BaseLayout
+  title={title}
+  description={m?.description}
+  type="article"
+  canonical={pagePath}
+  publishedTime={m?.date}
+  modifiedTime={m?.updated ?? m?.date}
+  noindex={m?.indexable === false}
+  jsonLd={[
+    personJsonLd(site),
+    articleJsonLd,
+    breadcrumbJsonLd([
+      { name: SITE_NAME, path: "/" },
+      { name: "思考", path: "/essays/" },
+      { name: title, path: pagePath }
+    ], site)
+  ]}
+>
   <article class="article-wrap">
     <div class="article-topline">
       <a href="/essays" class="back-btn">
@@ -49,8 +116,17 @@ const next = currentIndex >= 0 ? all[currentIndex - 1] : undefined;
       </a>
     </div>
 
-    <div class="article-meta">{formatDateMid(m?.date ?? "0000-00-00")}</div>
-    <h1 class="article-title">{m?.title ?? entry.data.title ?? "未命名"}</h1>
+    <div class="article-meta">
+      {formatDateMid(m?.date ?? "0000-00-00")}
+      {m?.updated && m.updated !== m.date && <span> · 更新 {formatDateMid(m.updated)}</span>}
+      {m?.readingTime && <span> · {m.readingTime} 分钟读完</span>}
+    </div>
+    <h1 class="article-title">{title}</h1>
+    {tags.length > 0 && (
+      <div class="article-tags" aria-label="文章标签">
+        {tags.map((tag) => <span>{tag}</span>)}
+      </div>
+    )}
 
     <div class="article-body">
       <Content />
@@ -71,6 +147,17 @@ const next = currentIndex >= 0 ? all[currentIndex - 1] : undefined;
           </a>
         )}
       </nav>
+    )}
+    {fallbackRelated.length > 0 && (
+      <aside class="related-posts" aria-label="相关文章">
+        <span class="related-label">Related</span>
+        <h2>继续读这些相关思考</h2>
+        <div>
+          {fallbackRelated.map((post) => (
+            <a href={`/essays/${post.slug}/`}>{post.title}</a>
+          ))}
+        </div>
+      </aside>
     )}
   </article>
 </BaseLayout>

@@ -1,6 +1,9 @@
 ---
 title: Hermes agent：抄袭风波下的黑产链路拆解
 date: 2026-04-14
+updated: 2026-05-13
+description: 我把 Hermes agent 的抄袭风波往下拆，真正看到的不是一次普通争议，而是一条围绕抄袭、买量、资本包装和平台漏洞运转的黑产链路。
+tags: [Hermes agent, 开源, GitHub, 抄袭, 黑产, AI行业]
 ---
 # Hermes agent抄袭风波及背后黑产链路拆解
 

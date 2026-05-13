@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { AUTHOR_TOPICS, personJsonLd, websiteJsonLd } from "../lib/seo";
+
+const site = Astro.site ?? new URL("https://huangwenxuangod.github.io");
+---
+
+<BaseLayout
+  title="关于文轩"
+  description="文轩是谁，以及这个站点长期记录的 AI、产品、内容、自动化和自由之路。"
+  canonical="/about/"
+  jsonLd={[personJsonLd(site), websiteJsonLd(site)]}
+>
+  <section class="page-shell">
+    <header class="page-hero">
+      <span class="eyebrow">About</span>
+      <h1>文轩，在用项目和内容给自由修路。</h1>
+      <p>
+        这里记录我如何使用 AI、产品、自动化系统和内容资产，把模糊的想法推到真实世界里。
+      </p>
+    </header>
+
+    <div class="about-grid">
+      <section class="about-block">
+        <span class="rail-label">Identity</span>
+        <h2>我是谁</h2>
+        <p>
+          我是文轩，一个长期关注 AI 产品、Claude、Agent、自动化系统、内容创业和独立开发的人。
+          这个站不是包装出来的人设，而是我把项目推进、失败复盘、商业观察和个人系统建设都放在同一个地方。
+        </p>
+      </section>
+
+      <section class="about-block">
+        <span class="rail-label">Topics</span>
+        <h2>长期主题</h2>
+        <div class="topic-chips">
+          {AUTHOR_TOPICS.map((topic) => <span>{topic}</span>)}
+        </div>
+      </section>
+
+      <section class="about-block">
+        <span class="rail-label">Why</span>
+        <h2>为什么写</h2>
+        <p>
+          我希望每篇文章都能留下一个可复用的判断：一个工具为什么有用，一个项目为什么失败，
+          一个商业模式为什么成立，以及一个普通人如何借助 AI 获得更多行动空间。
+        </p>
+      </section>
+
+      <section class="about-block">
+        <span class="rail-label">Entry</span>
+        <h2>从这里开始</h2>
+        <div class="about-links">
+          <a href="/essays/">读长期思考</a>
+          <a href="/projects/">看项目记录</a>
+          <a href="/achievements/">看可验证成果</a>
+          <a href="https://github.com/huangwenxuangod">GitHub</a>
+        </div>
+      </section>
+    </div>
+  </section>
+</BaseLayout>

@@ -8,6 +8,8 @@ type MetaItem = {
   slug: string;
   title: string;
   date: string;
+  updated?: string;
+  indexable?: boolean;
 };
 
 function formatDateMid(ymd: string) {
@@ -36,7 +38,12 @@ const currentIndex = all.findIndex((p) => p.id === id);
 const prev = currentIndex >= 0 ? all[currentIndex + 1] : undefined;
 const next = currentIndex >= 0 ? all[currentIndex - 1] : undefined;
 ---
-<BaseLayout>
+<BaseLayout
+  title={`日记 ${formatDateMid(m?.date ?? "0000-00-00")}`}
+  description="文轩自由之路上的日常观察和过程记录。"
+  canonical={`/diaries/${m?.slug}/`}
+  noindex={m?.indexable === false}
+>
   <div class="article-wrap">
     <div style="margin-bottom: 32px;">
       <a href="/diaries" class="back-btn">
